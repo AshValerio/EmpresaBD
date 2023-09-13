@@ -22,13 +22,13 @@ CREATE TABLE Proveedor (
 CONSTRAINT FKIDTerr FOREIGN KEY (CodigoTerritorial) REFERENCES Territorio(CodigoTerritorial)
 );
 
--- Crear la tabla Categor�a
+-- Crear la tabla Categoría
 CREATE TABLE Categoria (
     CodigoCat INT PRIMARY KEY,
     NombreCat NVARCHAR(100)
 );
 
--- Crear la tabla Subcategor�a
+-- Crear la tabla Subcategoría
 CREATE TABLE Subcategoria (
     Codigosub INT PRIMARY KEY,
     NombreSub NVARCHAR(100),
@@ -52,7 +52,6 @@ CONSTRAINT FKIDProv FOREIGN KEY (CodigoProveedor) REFERENCES Proveedor(CodigoPro
 CONSTRAINT FKIDSub FOREIGN KEY (CodigoSub) REFERENCES Subcategoria(CodigoSub)
 );
 
-
 -- Crear la tabla Cliente
 CREATE TABLE Cliente (
     CedulaCliente INT PRIMARY KEY,
@@ -75,7 +74,7 @@ CREATE TABLE Factura (
 CONSTRAINT FKIDCed FOREIGN KEY (CedulaCliente) REFERENCES Cliente(CedulaCliente)
 );
 
---Creat la tabla Factura-Producto
+--Crear la tabla Factura-Producto
 CREATE TABLE FactProd (
     CodigoFactProd INT IDENTITY (1,1) PRIMARY KEY,
 	Cantidad INT CHECK (cantidad >0),
@@ -93,62 +92,81 @@ USE EmpresaBD;
 INSERT INTO Territorio(CodigoTerritorial, Distrito, Canton, Provincia)
 VALUES (10101,'San Jose', 'San Jose', 'San Jose'),
 (40103, 'San Francisco', 'Heredia', 'Heredia'),
-(60702, 'Puntarenas', 'Golfito', 'Puerto Jim�nez'),
-(30202, 'Cartago', 'Paraiso', 'Cervantes'),
-(11502, 'San Jose', 'Montes de Oca', 'San Rafael');
+(20102, 'San Rafael', 'Alajuela', 'Alajuela'),
+(40102, 'Barva', 'Heredia', 'Heredia'),
+(70102, 'Guácimo', 'Limon', 'Limon'),
+(10103, 'Desamparados', 'Desamparados', 'San Jose'),
+(50202, 'Bagaces', 'Bagaces', 'Guanacaste'),
+(30203, 'Turrialba', 'Turrialba', 'Cartago'),
+(60102, 'Golfito', 'Golfito', 'Puntarenas'),
+(20103, 'San Ramón', 'San Ramón', 'Alajuela'),
+(60302, 'Esparza', 'Esparza', 'Puntarenas'),
+(10102, 'Escazú', 'Escazú', 'San Jose'),
+(70302, 'Pococí', 'Pococí', 'Limón'),
+(30202, 'Paraíso', 'Paraíso', 'Cartago');
 
 -- Insertar proveedores
 INSERT INTO Proveedor(CodigoProveedor, Cedula, TipoCedula, Nombre, CorreoElectronico, Telefono, CodigoTerritorial)
-VALUES (810, 00030405060, 'Jur�dica', 'PortaretratosArte S.A.', 'info@portaretratosarte.com', 85555866,40103),
-(321, 00405785676,  'Jur�dica','CamisasConejo', 'camisasconejos@gmail.com', 22874598, 30202),
-(852, 112334455, 'F�sica', 'Cumplea�osEspectaculares', 'ventas@cumplea�osespectaculares.com', 22556666, 11502),
-(258, 112234318, 'F�sica', 'AniversarioElegante', 'ventas@aniversarioelegante.com', 89799000, 60702),
-(987, 0040238576, 'Jur�dica', 'Arte Impresionado', 'arte.impresionado@gmail.com', 22818364, 10101);
+VALUES (810, 00030405060, 'Jurídica', 'PortaretratosArte S.A.', 'info@portaretratosarte.com', 85555866,40103),
+(321, 00405785676,  'JurÍdica','CamisasConejo', 'camisasconejos@gmail.com', 22874598, 30203),
+(852, 112334455, 'Física', 'CumpleañosEspectaculares', 'ventas@cumpleañosespectaculares.com', 22556666, 60302),
+(258, 112234318, 'Física', 'AniversarioElegante', 'ventas@aniversarioelegante.com', 89799000, 10102),
+(987, 0040238576, 'Jurídica', 'Arte Impresionado', 'arte.impresionado@gmail.com', 22818364, 50202),
+(654, 380506070, 'Física', 'UniformesPro S.A.', 'info@uniformespro.com', 22667777, 40102);
 
--- Insertar categor�as
+-- Insertar categorías
 INSERT INTO Categoria(NombreCat, CodigoCat)
 VALUES ('Textil',1),
-('Decoraci�n', 2),
+('Decoración', 2),
 ('Regalos', 3);
 
--- Insertar subcategor�as
+-- Insertar subcategorías
 INSERT INTO Subcategoria(CodigoCat, NombreSub, Codigosub)
 VALUES (1, 'Camisetas', 101),
 (1,'Uniformes', 102),
 (2, 'Portaretratos', 201),
 (2, 'Lienzos', 202),
-(3, 'Cumplea�os', 301),
+(3, 'Cumpleaños', 301),
 (3, 'Aniversario',302);
 
 -- Insertar productos
 INSERT INTO Producto  (Consecutivo, NombreProducto, Precio, Tamano, Color, Descripcion, Marca, CodigoProveedor,CodigoSub, CodigoProducto) 
-VALUES(1001, 'Camiseta Personalizada', 5000, 'M', 'Blanco', 'Camiseta de algod�n con dise�o personalizado', 'CamisetaConejo', 321, 101,667),
-(3001, 'Portaretratos de Madera', 2500, '8x10', 'Marr�n', 'Portaretratos de madera con dise�o cl�sico', 'PortaretratosArte', 987, 201,1810),
-(4002, 'Lienzo Abstracto', 3000, '20x24', 'Multicolor', 'Lienzo con dise�o abstracto personalizado', 'LienzosPersonalizados', 987, 202,668),
-(6001, 'Regalos de Aniversario', 10000, 'Var�a', 'Varios', 'Regalos personalizados para aniversarios', 'AniversarioEleg.', 258, 302, 767),
-(5001, 'Kit de Cumplea�os', 8000, 'Var�a', 'Varios', 'Kit completo para fiestas de cumplea�os', 'Cumplea�os', 852, 301, 810);
+VALUES(1001, 'Camiseta Personalizada', 5000, 'M', 'Blanco', 'Camiseta de algodón con diseño personalizado', 'CamisetaConejo', 321, 101,667),
+(3001, 'Portaretratos de Madera', 2500, '8x10', 'Marrón', 'Portaretratos de madera con diseño clásico', 'PortaretratosArte', 987, 201,1810),
+(4002, 'Lienzo Abstracto', 3000, '20x24', 'Multicolor', 'Lienzo con diseño abstracto personalizado', 'LienzosPersonalizados', 987, 202,668),
+(6001, 'Regalos de Aniversario', 10000, 'Varía', 'Varios', 'Regalos personalizados para aniversarios', 'AniversarioEleg.', 258, 302, 767),
+(5001, 'Kit de Cumpleaños', 8000, 'Varía', 'Varios', 'Kit completo para fiestas de cumpleaños', 'Cumpleaños', 852, 301, 810),
+(2001, 'Uniforme Perzonalizado',7000, 'XL', 'Azul', 'Uniforme personalizado', 'UniformesPro.',654 ,102,541);
 
 --Insertar clientes
 INSERT INTO Cliente(CedulaCliente,TipoCedula,NombreCliente,Direccion,CorreoECliente)
 VALUES (108446798, 'Fisica', 'Daniel Solis', '75m Este de la Municipalidad Montes de Oca', 'dani.solis@gmail.com'),
-(112334455, 'F�sica', 'Juan P�rez', '123 Calle Principal, Ciudad', 'juanperez@email.com'),
-(00405060780, 'Jur�dica', 'Empresa ABC S.A.', '456 Avenida Central, Ciudad', 'info@empresaabc.com'),
-(00060708090, 'Jur�dica', 'Distribuidora 123 S.A.', '1010 Avenida Norte, Ciudad', 'ventas@distribuidora123.com'),
-(00790905436, 'Jur�dica', 'Tienda de Regalos Felices S.A.', '222 Plaza Mayor, Ciudad', 'info@tiendaderegalosfelices.com');
+(112334455, 'Física', 'Juan Pérez', '123 Calle Principal, Ciudad', 'juanperez@email.com'),
+(00405060780, 'Jurídica', 'Empresa ABC S.A.', '456 Avenida Central, Ciudad', 'info@empresaabc.com'),
+(00060708090, 'Jurídica', 'Distribuidora 123 S.A.', '1010 Avenida Norte, Ciudad', 'ventas@distribuidora123.com'),
+(00790905436, 'Jurídica', 'Tienda de Regalos Felices S.A.', '222 Plaza Mayor, Ciudad', 'info@tiendaderegalosfelices.com');
 
 -- Insertar facturas
+
 INSERT INTO Factura(ProductoAdq, UnidadesAdq, Precio, PorcImpuestos, PorcDescuento, Fecha, CedulaCliente, NumeroFactura)
-VALUES ('Camiseta Personalizada', 3, 5000, 13, 5, '2023-09-01', 112334455,5100),
-('Portaretrato de Madera', 2, 2500, 10, 0, '2023-09-02', 00060708090, 5101),
-('Lienzo con Abstracto', 1, 3000, 15, 2, '2023-09-03', 00405060780,5102),
-('Kit de Cumplea�os', 5, 8000, 10, 8, '2023-09-04', 00790905436,5103),
-('Regalos de Aniversario', 2, 10000, 12, 3, '2023-09-05', 108446798,5104);
+VALUES ('Lienzo Abstracto', 2, 3000, 13, 5, '2023-09-01', 112334455,5100),
+('Camiseta Personalizada', 3, 5000, 13, 5, '2023-09-01', 112334455,5101),
+('Kit de Cumpleaños', 1, 8000, 15, 0,'2023-09-03', 00405060780,5102),
+('Regalos de Aniversario', 2, 10000, 12, 3, '2023-09-05', 108446798,5104),
+('Portaretratos de Madera', 2, 2500,10, 8, '2023-09-04', 00790905436,5103);
 
 --Insertar Facturas-Prducto
 
 INSERT INTO FactProd(Cantidad,NumeroFactura,Consecutivo)
 VALUES (3, 5100, 1001),
+(2, 5100, 6001),
 (2, 5101, 3001),
-(1,5102, 4002),
+(2, 5101, 4002),
+(3, 5101, 2001),
+(1, 5102, 4002),
+(4, 5102, 5001),
 (5, 5103, 5001),
-(2, 5104, 6001);
+(2, 5103, 6001),
+(1, 5103, 3001),
+(2, 5104, 6001),
+(3, 5104, 4002);
